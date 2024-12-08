@@ -9,49 +9,32 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LifecycleOwner
-import com.example.frameobjectcontrol.tracking.ObjectTracker
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.os.Build
 import android.view.View
 import android.widget.TextView
-//import android.os.Bundle
-//import android.util.Log
-//import android.widget.Button
-//import androidx.appcompat.app.AppCompatActivity
-//import androidx.camera.core.*
-//import androidx.camera.lifecycle.ProcessCameraProvider
-//import androidx.camera.view.PreviewView
+
 import androidx.core.app.ActivityCompat
-import org.opencv.android.OpenCVLoader
+import com.example.frameobjectcontrol.tracking.ObjectController
 
-//import androidx.core.content.ContextCompat
-//import com.example.frameobjectcontrol.tracking.ObjectTracker
-//import java.util.concurrent.ExecutorService
-//import java.util.concurrent.Executors
 
-class MainActivity : AppCompatActivity(), ObjectTracker.TrackingCallback {
+class MainActivity : AppCompatActivity(), ObjectController.TrackingCallback {
 
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var cameraPreview: PreviewView
     private lateinit var btnStartTracking: Button
-    private lateinit var objectTracker: ObjectTracker
+    private lateinit var objectController: ObjectController
     private var isTracking = false
     private lateinit var overlayView: OverlayView
     private lateinit var tvStatus: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (!OpenCVLoader.initDebug())
-            Log.e("OpenCV", "Unable to load OpenCV!");
-        else
-            Log.d("OpenCV", "OpenCV loaded Successfully!");
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -65,8 +48,8 @@ class MainActivity : AppCompatActivity(), ObjectTracker.TrackingCallback {
         cameraExecutor = Executors.newSingleThreadExecutor()
 
         // Инициализация ObjectTracker
-        objectTracker = ObjectTracker(this)
-        objectTracker.setTrackingCallback(this)
+        objectController = ObjectController(this)
+        objectController.setTrackingCallback(this)
 
         // Проверка разрешений и запуск камеры
         if (isPermissionGranted()) {
@@ -79,6 +62,9 @@ class MainActivity : AppCompatActivity(), ObjectTracker.TrackingCallback {
         btnStartTracking.setOnClickListener {
             isTracking = !isTracking
             btnStartTracking.text = if (isTracking) "Stop Tracking" else "Start Tracking"
+            if (!isTracking) {
+                tvStatus.visibility = View.GONE
+            }
         }
     }
 
@@ -134,11 +120,11 @@ class MainActivity : AppCompatActivity(), ObjectTracker.TrackingCallback {
                 .also {
                     it.setAnalyzer(cameraExecutor) { image ->
                         if (isTracking) {
-                            objectTracker.analyzeImage(image.toBitmapWithCorrectOrientation())
+                            objectController.analyzeImage(image.toBitmapWithCorrectOrientation())
                             image.close()
                         } else {
                             overlayView.setBoundingBox(null)
-                            tvStatus.visibility = View.GONE
+                       //     tvStatus.visibility = View.GONE
                             image.close()
                         }
                     }
