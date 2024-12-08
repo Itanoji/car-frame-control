@@ -1,0 +1,44 @@
+[versions]
+agp = "8.7.3"
+cameraView = "1.4.0"
+kotlin = "1.9.24"
+coreKtx = "1.10.1"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+appcompat = "1.6.1"
+kotlinxCoroutinesAndroid = "1.7.3"
+lifecycleRuntimeKtx = "2.8.7"
+material = "1.10.0"
+objectDetection = "17.0.2"
+opencvAndroid = "4.5.1"
+tensorflowLite = "2.12.0"
+tensorflowLiteTaskVision = "0.4.0"
+cameraCore = "1.4.0"
+cameraLifecycle = "1.4.0"
+cameraViewVersion = "1.4.0"
+opencv = "4.5.3.0"
+
+[libraries]
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraView" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleRuntimeKtx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+opencv = { module = "com.quickbirdstudios:opencv", version.ref = "opencv" }
+opencv-contrib = { module = "com.quickbirdstudios:opencv-contrib", version.ref= "opencv" }
+tensorflow-lite = { module = "org.tensorflow:tensorflow-lite", version.ref = "tensorflowLite" }
+tensorflow-lite-task-vision = { module = "org.tensorflow:tensorflow-lite-task-vision", version.ref = "tensorflowLiteTaskVision" }
+camera-core = { group = "androidx.camera", name = "camera-core", version.ref = "cameraCore" }
+camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "cameraLifecycle" }
+camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "cameraViewVersion" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
